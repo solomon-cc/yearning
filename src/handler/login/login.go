@@ -126,8 +126,8 @@ func HandleCallback(c yee.Context) (err error) {
 	}
 
 	if g.State != oauthStateString {
-		c.Logger().Error("Invalid oauth state")
-		return nil
+		c.Logger().Error("invalid oauth state")
+		return c.JSON(http.StatusInternalServerError, commom.ERR_COMMON_MESSAGE(errors.New("invalid oauth state")))
 	}
 
 	// Use the authorization code that is pushed to the redirect
@@ -138,7 +138,7 @@ func HandleCallback(c yee.Context) (err error) {
 
 	if err != nil {
 		c.Logger().Error(err.Error())
-		return err
+		return c.JSON(http.StatusInternalServerError, commom.ERR_COMMON_MESSAGE(err))
 	}
 
 	gu, _ := getGitlabUserInfo(c, tok.AccessToken)
@@ -147,7 +147,7 @@ func HandleCallback(c yee.Context) (err error) {
 	token, tokenErr := lib.JwtAuth(cu.Username, cu.Rule)
 	if tokenErr != nil {
 		c.Logger().Error(tokenErr.Error())
-		return
+		return c.JSON(http.StatusInternalServerError, commom.ERR_COMMON_MESSAGE(err))
 	}
 
 	dataStore := map[string]interface{}{

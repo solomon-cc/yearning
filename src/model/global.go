@@ -76,5 +76,5 @@ var GloOther Other
 
 var GloMessage Message
 
-var GloBaseDomin = "https://yearning.ayla.com.cn/front"
-var GloGitlab = "https://gitlab.ayla.com.cn"
+var GloBaseDomin = "https://sql.seres.cn"
+var GloGitlab = "https://gitlab-bigdata.seres.cn"
